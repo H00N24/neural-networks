@@ -1,3 +1,5 @@
+# Data files
+MNIST_DATA/*
 # Prerequisites
 *.d
 

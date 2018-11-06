@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+unzip MNIST_DATA/mnist_data.zip -d MNIST_DATA/
