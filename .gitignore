@@ -1,5 +1,15 @@
+#Bin
+network
+
 # Data files
 MNIST_DATA/*
+
+# python testing
+python-testing/*
+
+# vscode
+.vscode/*
+
 # Prerequisites
 *.d
 
