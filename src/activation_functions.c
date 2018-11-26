@@ -17,3 +17,19 @@ void sigmoid_prime(double *result, double *values, int size)
         *(result + i) = sigm * (1 - sigm);
     }
 }
+
+void relu(double *result, double *values, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        *(result + i) = (*(values + i) > 0) ? *(values + i) : 0;
+    }
+}
+
+void relu_prime(double *result, double *values, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        *(result + i) = (*(values + i) > 0) ? 1 : 0;
+    }
+}
