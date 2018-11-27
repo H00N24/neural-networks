@@ -25,12 +25,12 @@ double randn(double mu, double sigma) {
   return (mu + sigma * (double)X1);
 }
 
-void weights_initializer(double *weights, int m, int n, int inputs,
-                         int outputs) {
+void initializer_GB(Matrix *weights, int inputs, int outputs) {
+  // Gloriot & Bengio initialization
   double mn = sqrt(6 / (double)(inputs + outputs));
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < m; j++) {
-      *((weights + i * m) + j) = randn(0, 1) * mn;
+  for (int i = 0; i < weights->m; i++) {
+    for (int j = 0; j < weights->n; j++) {
+      weights->data[i][j] = randn(0, 1) * mn;
     }
   }
 }
