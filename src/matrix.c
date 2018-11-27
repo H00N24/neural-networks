@@ -25,6 +25,17 @@ void matrix_free(Matrix *matrix) {
 
 void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
                            char zero_init) {
+  ASSERT(matrix_1->m == matrix_2->m,
+         "mat_1->M != mat_2->M, matrix_multiplication");
+  ASSERT(matrix_1->n == matrix_2->n,
+         "mat_1->N != mat_2->N, matrix_multiplication");
+
+  ASSERT(result->m == matrix_1->m, "res->M != mat_1->M, matrix_multiplication");
+  ASSERT(result->m == matrix_2->m, "res->M != mat_2->M, matrix_multiplication");
+
+  ASSERT(result->n == matrix_1->n, "res->N != mat_1->N, matrix_multiplication");
+  ASSERT(result->n == matrix_2->n, "res->N != mat_2->N, matrix_multiplication");
+
   for (int i = 0; i < matrix_1->m; i++) {
     for (int j = 0; j < matrix_2->n; j++) {
       if (zero_init) result->data[i][j] = 0;
@@ -36,6 +47,15 @@ void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
 }
 
 void matrix_sum(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
+  ASSERT(matrix_1->m == matrix_2->m, "mat_1->M != mat_2->M, matrix_sum");
+  ASSERT(matrix_1->n == matrix_2->n, "mat_1->N != mat_2->N, matrix_sum");
+
+  ASSERT(result->m == matrix_1->m, "res->M != mat_1->M, matrix_sum");
+  ASSERT(result->m == matrix_2->m, "res->M != mat_2->M, matrix_sum");
+
+  ASSERT(result->n == matrix_1->n, "res->N != mat_1->N, matrix_sum");
+  ASSERT(result->n == matrix_2->n, "res->N != mat_2->N, matrix_sum");
+
   for (int i = 0; i < result->m; i++) {
     for (int j = 0; j < result->n; j++) {
       result->data[i][j] = matrix_1->data[i][j] + matrix_2->data[i][j];
@@ -44,6 +64,15 @@ void matrix_sum(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
 }
 
 void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
+  ASSERT(matrix_1->m == matrix_2->m, "mat_1->M != mat_2->M, matrix_prod");
+  ASSERT(matrix_1->n == matrix_2->n, "mat_1->N != mat_2->N, matrix_prod");
+
+  ASSERT(result->m == matrix_1->m, "res->M != mat_1->M, matrix_prod");
+  ASSERT(result->m == matrix_2->m, "res->M != mat_2->M, matrix_prod");
+
+  ASSERT(result->n == matrix_1->n, "res->N != mat_1->N, matrix_prod");
+  ASSERT(result->n == matrix_2->n, "res->N != mat_2->N, matrix_prod");
+
   for (int i = 0; i < result->m; i++) {
     for (int j = 0; j < result->n; j++) {
       result->data[i][j] = matrix_1->data[i][j] * matrix_2->data[i][j];

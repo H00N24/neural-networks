@@ -1,19 +1,25 @@
 CC=gcc
 CFLAGS=-lm
-OPTIMALIZATION=-O2
+OPTIMIZATION=-O2
 HEADERS=*.h 
 C_FILES=*.c
 DEBUG=-D DEBUG
-TAERGET=network
+TARGET=network
 
-default: $(TAERGET)
+TEST_TARGET=test
+TEST_C_FILES=tests/*.c
+TEST_H_FILES=tests/*.h
 
-$(TAERGET): $(C_FILES) $(HEADERS)
-	$(CC) -o $(TAERGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMALIZATION)
+default: $(TARGET)
+
+$(TARGET): $(C_FILES) $(HEADERS)
+	$(CC) -o $(TARGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMIZATION)
 
 debug:
-	$(CC) -o $(TAERGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMALIZATION) $(DEBUG)
+	$(CC) -o $(TARGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMIZATION) $(DEBUG)
 
+test:
+	$(CC) -o $(TEST_TARGET) $(TEST_C_FILES) matrix.c $(TEST_H_FILES) matrix.h $(CFLAGS)
 
 clean:
-	rm $(TAERGET)
+	rm $(TARGET) $(TEST_TARGET)
