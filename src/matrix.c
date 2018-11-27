@@ -23,54 +23,49 @@ void matrix_free(Matrix *matrix) {
   free(matrix);
 }
 
-void matrix_multiplication(double *result, double *matrix_1, int m1, int n1,
-                           double *matrix_2, int m2, int n2, char zero_init) {
-  for (int i = 0; i < m1; i++) {
-    for (int j = 0; j < n2; j++) {
-      if (zero_init) *((result + i * m1) + j) = 0;
-      for (int x = 0; x < n1; x++) {
-        *((result + i * m1) + j) +=
-            *((matrix_1 + i * n1) + x) * *((matrix_2 + x * n2) + j);
+void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
+                           char zero_init) {
+  for (int i = 0; i < matrix_1->m; i++) {
+    for (int j = 0; j < matrix_2->n; j++) {
+      if (zero_init) result->data[i][j] = 0;
+      for (int x = 0; x < matrix_1->n; x++) {
+        result->data[i][j] += matrix_1->data[i][x] * matrix_2->data[x][j];
       }
     }
   }
 }
 
-void matrix_sum(double *result, double *matrix_1, double *matrix_2, int m,
-                int n) {
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < n; i++) {
-      *((result + i * m) + j) +=
-          *((matrix_1 + i * m) + j) + *((matrix_2 + i * n) + j);
+void matrix_sum(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
+  for (int i = 0; i < result->m; i++) {
+    for (int j = 0; j < result->n; j++) {
+      result->data[i][j] = matrix_1->data[i][j] + matrix_2->data[i][j];
     }
   }
 }
 
-void matrix_prod(double *result, double *matrix_1, double *matrix_2, int m,
-                 int n) {
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < n; i++) {
-      *((result + i * m) + j) +=
-          *((matrix_1 + i * m) + j) * *((matrix_2 + i * n) + j);
+void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
+  for (int i = 0; i < result->m; i++) {
+    for (int j = 0; j < result->n; j++) {
+      result->data[i][j] = matrix_1->data[i][j] * matrix_2->data[i][j];
     }
   }
 }
 
-double sum_of_matrix(double *matrix, int m, int n) {
-  double resultult = 0;
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < n; j++) {
-      resultult += *((matrix + i * m) + j);
+double sum_of_matrix(Matrix *matrix) {
+  double result = 0;
+  for (int i = 0; i < matrix->m; i++) {
+    for (int j = 0; j < matrix->n; j++) {
+      result += matrix->data[i][j];
     }
   }
-  return resultult;
+  return result;
 }
 
-void print_matrix(double *matrix, int m, int n) {
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < n; j++) {
-      printf("%d", (int)*((matrix + i * m) + j));
-      if (j < n - 1) {
+void print_matrix(Matrix *matrix) {
+  for (int i = 0; i < matrix->m; i++) {
+    for (int j = 0; j < matrix->n; j++) {
+      printf("%.2e", matrix->data[i][j]);
+      if (j < matrix->n - 1) {
         printf(",");
       }
     }

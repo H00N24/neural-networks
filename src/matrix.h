@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct matrix_obj {
   int m;
@@ -11,22 +12,18 @@ typedef struct matrix_obj {
 } Matrix;
 
 Matrix *matrix_init(int m, int n);
+
 void matrix_free(Matrix *matrix);
 
-void matrix_multiplication(double *result, double *matrix_1, int m1, int n1,
-                           double *matrix_2, int m2, int n2, char zero_init);
+void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
+                           char zero_init);
 
-void matrix_sum(double *result, double *matrix_1, double *matrix_2, int m,
-                int n);
+void matrix_sum(Matrix *result, Matrix *matrix_1, Matrix *matrix_2);
 
-void matrix_prod(double *result, double *matrix_1, double *matrix_2, int m,
-                 int n);
+void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2);
 
-void matrix_prod(double *result, double *matrix_1, double *matrix_2, int m,
-                 int n);
+double sum_of_matrix(Matrix *matrix);
 
-double sum_of_matrix(double *matrix, int m, int n);
-
-void print_matrix(double *matrix, int m, int n);
+void print_matrix(Matrix *matrix);
 
 #endif
