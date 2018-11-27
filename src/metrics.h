@@ -3,6 +3,7 @@
 
 #include <math.h>
 
-void mean_square_vector(double *result, double *predicted, double *real, int size);
+void mean_square_vector(double *result, double *predicted, double *real,
+                        int size);
 
 #endif
