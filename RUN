@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
 unzip MNIST_DATA/mnist_data.zip -d MNIST_DATA/
+
+cd MNIST_DATA && sed -i 's/\r//g' *.csv

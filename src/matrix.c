@@ -46,7 +46,10 @@ double sum_of_matrix(double *matrix, int m, int n) {
 void print_matrix(double *matrix, int m, int n) {
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
-      printf("%.10e ", *((matrix + i * m) + j));
+      printf("%d", (int)*((matrix + i * m) + j));
+      if (j < n - 1) {
+        printf(",");
+      }
     }
     printf("\n");
   }

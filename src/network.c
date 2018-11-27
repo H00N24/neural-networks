@@ -5,11 +5,15 @@ int main(int argc, char const* argv[]) {
 
   DPRINT("STARTED!\n");
 
-  char training_file[] = "../MNIST_DATA/mnist_train_vectors.csv";
-  load_data((double*)training_data, training_file, INPUT_L);
-
+  char training_file[] = "../MNIST_DATA/mnist_train_vector.csv";
+  load_data((double*)training_data, training_file, INPUT_L + 1, &scaler, 1);
+  DPRINT("\n");
+  print_matrix((double*)training_data, 2, INPUT_L + 1);
+  return 0;
+  DPRINT("Vectors laoded\n");
   char labels_file[] = "../MNIST_DATA/mnist_train_labels.csv";
-  load_data((double*)training_data, labels_file, 1);
+  load_data((double*)training_data, labels_file, 1, &one_hot_encoder, 10);
+  DPRINT("Labels laoded\n");
 
   HiddenLayer hidden_layer;
   hidden_layer.neurons = HIDDEN_L;
@@ -22,10 +26,14 @@ int main(int argc, char const* argv[]) {
                       hidden_layer.outputs);
 
   OutputLayer output_layer;
+  output_layer.neurons = OUTPUT_L;
+  output_layer.inputs = HIDDEN_L;
+  output_layer.outputs = OUTPUT_L;
   output_layer.activation = sigmoid;
   output_layer.activation_prime = sigmoid_prime;
-  weights_initializer((double*)output_layer.weights, 1 + HIDDEN_L, OUTPUT_L,
-                      HIDDEN_L, 0);
+  weights_initializer((double*)output_layer.weights, 1 + output_layer.inputs,
+                      output_layer.neurons, output_layer.inputs,
+                      output_layer.outputs);
 
   double error[1][OUTPUT_L];
   double mean_square_error;

@@ -13,9 +13,9 @@
 #define OUTPUT_L 10
 
 typedef struct HiddenLayer {
+  unsigned int neurons;
   unsigned int inputs;
   unsigned int outputs;
-  unsigned int neurons;
   double weights[1 + INPUT_L][HIDDEN_L];
   double z[1][HIDDEN_L];
   double a[1][HIDDEN_L + 1];
@@ -24,6 +24,7 @@ typedef struct HiddenLayer {
 } HiddenLayer;
 
 typedef struct OutputLayer {
+  unsigned int neurons;
   unsigned int inputs;
   unsigned int outputs;
   double weights[1 + HIDDEN_L][OUTPUT_L];
