@@ -1,5 +1,6 @@
 #Bin
 network
+test
 
 # Data files
 MNIST_DATA/*
