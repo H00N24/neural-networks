@@ -3,12 +3,14 @@
 
 #include <math.h>
 
-void sigmoid(double *result, double *values, int size);
+#include "matrix.h"
 
-void sigmoid_prime(double *result, double *values, int size);
+double sigmoid(double value);
 
-void relu(double *result, double *values, int size);
+double sigmoid_prime(double value);
 
-void relu_prime(double *result, double *values, int size);
+double relu(double value);
+
+double relu_prime(double value);
 
 #endif

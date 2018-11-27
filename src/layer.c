@@ -1,7 +1,8 @@
 #include "layer.h"
 
-Layer *layer_init(int neurons, int inputs, int outputs, void (*activation)(),
-                  void (*activation_prime)()) {
+Layer *layer_init(int neurons, int inputs, int outputs,
+                  double (*activation)(double),
+                  double (*activation_prime)(double)) {
   Layer *new_layer = (Layer *)malloc(sizeof(struct layer_obj));
 
   new_layer->neurons = neurons;

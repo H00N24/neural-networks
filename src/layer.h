@@ -14,12 +14,13 @@ typedef struct layer_obj {
   Matrix *z;
   Matrix *a;
 
-  void (*activation)();
-  void (*activation_prime)();
+  double (*activation)(double);
+  double (*activation_prime)(double);
 } Layer;
 
-Layer *layer_init(int neurons, int inputs, int outputs, void (*activation)(),
-                  void (*activation_prime)());
+Layer *layer_init(int neurons, int inputs, int outputs,
+                  double (*activation)(double),
+                  double (*activation_prime)(double));
 
 void layer_free(Layer *layer);
 

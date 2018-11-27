@@ -89,6 +89,14 @@ double sum_of_matrix(Matrix *matrix) {
   return result;
 }
 
+void matrix_apply(Matrix *result, Matrix *matrix, double (*function)(double)) {
+  for (int i = 0; i < matrix->m; i++) {
+    for (int j = 0; j < matrix->n; j++) {
+      result->data[i][j] = function(matrix->data[i][j]);
+    }
+  }
+}
+
 void print_matrix(Matrix *matrix, bool int_out) {
   for (int i = 0; i < matrix->m; i++) {
     for (int j = 0; j < matrix->n; j++) {
