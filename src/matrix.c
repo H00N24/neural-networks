@@ -24,7 +24,7 @@ void matrix_free(Matrix *matrix) {
 }
 
 void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
-                           char zero_init) {
+                           bool zero_init) {
   for (int i = 0; i < matrix_1->m; i++) {
     for (int j = 0; j < matrix_2->n; j++) {
       if (zero_init) result->data[i][j] = 0;
@@ -61,10 +61,13 @@ double sum_of_matrix(Matrix *matrix) {
   return result;
 }
 
-void print_matrix(Matrix *matrix) {
+void print_matrix(Matrix *matrix, bool int_out) {
   for (int i = 0; i < matrix->m; i++) {
     for (int j = 0; j < matrix->n; j++) {
-      printf("%.2e", matrix->data[i][j]);
+      if (int_out)
+        printf("%d", (int)matrix->data[i][j]);
+      else
+        printf("%.2e", matrix->data[i][j]);
       if (j < matrix->n - 1) {
         printf(",");
       }
