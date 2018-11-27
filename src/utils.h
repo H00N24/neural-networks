@@ -5,7 +5,8 @@
 #include <math.h>
 #include <stdlib.h>
 
-void weights_initializer(double *weights, int w_m, int w_n, int inputs,
-                         int outputs);
+#include "matrix.h"
+
+void initializer_GB(Matrix *weights, int inputs, int outputs);
 
 #endif
