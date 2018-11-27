@@ -1,5 +1,28 @@
 #include "matrix.h"
 
+Matrix *matrix_init(int m, int n) {
+  // Initialize struct matrix_obj
+  Matrix *new_matrix = (Matrix *)malloc(sizeof(struct matrix_obj));
+
+  // Initialize data in matrix_obj
+  new_matrix->data = (double **)malloc(m * sizeof(double *));
+  for (int i = 0; i < m; i++) {
+    new_matrix->data[i] = (double *)malloc(n * sizeof(double));
+  }
+
+  new_matrix->m = m;
+  new_matrix->n = n;
+
+  return new_matrix;
+}
+
+void matrix_free(Matrix *matrix) {
+  for (int i = 0; i < matrix->m; i++) free(matrix->data[i]);
+
+  free(matrix->data);
+  free(matrix);
+}
+
 void matrix_multiplication(double *result, double *matrix_1, int m1, int n1,
                            double *matrix_2, int m2, int n2, char zero_init) {
   for (int i = 0; i < m1; i++) {
