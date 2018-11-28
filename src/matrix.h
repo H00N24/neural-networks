@@ -14,8 +14,10 @@ typedef struct matrix_obj {
 } Matrix;
 
 Matrix *matrix_init(int m, int n);
+Matrix *matrix_init_empty(int m, int n);
 
 void matrix_free(Matrix *matrix);
+void matrix_empty_free(Matrix *matrix);
 
 void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
                            bool zero_init);
