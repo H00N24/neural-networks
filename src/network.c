@@ -1,10 +1,12 @@
 #include "network.h"
 
-Network *network_init(int num_of_layers) {
+Network *network_init(int num_of_layers, int outputs) {
   Network *new_network = malloc(sizeof(struct network_obj));
 
   new_network->num_of_layers = num_of_layers;
+  new_network->outputs = outputs;
   new_network->layers = malloc(num_of_layers * sizeof(Layer *));
+
   return new_network;
 }
 

@@ -15,7 +15,7 @@ int main(int argc, char const *argv[]) {
   load_data(vectors, "../MNIST_DATA/mnist_test_labels.csv", 1, false,
             one_hot_encoder, 0);
   // return 0;
-  Network *network = network_init(2);
+  Network *network = network_init(2, 10);
   network->layers[0] =
       layer_init(HIDDEN_L, INPUT_L, 10, sigmoid, sigmoid_prime);
 
@@ -27,10 +27,13 @@ int main(int argc, char const *argv[]) {
   }
 
   Matrix *X = matrix_init(1, 1 + 28 * 28);
+  Matrix *y = matrix_init(1, 10);
 
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 10; i++) {
     X->data[0] = vectors->data[i];
+    y->data[0] = labels->data[i];
     forward_pass(network, X);
+    printf("%f\n", mean_square_error(network->layers[1]->a, y));
   }
 
   return 0;

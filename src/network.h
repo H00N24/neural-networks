@@ -7,10 +7,11 @@
 
 typedef struct network_obj {
   int num_of_layers;
+  int outputs;
   Layer **layers;
 } Network;
 
-Network *network_init(int num_of_layers);
+Network *network_init(int num_of_layers, int outputs);
 
 void forward_pass(Network *network, Matrix *X);
 
