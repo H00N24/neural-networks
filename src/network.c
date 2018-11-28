@@ -15,5 +15,8 @@ void forward_pass(Network *network, Matrix *X) {
                           network->layers[i]->weights, true);
     matrix_apply(network->layers[i]->a, network->layers[i]->z,
                  network->layers[i]->activation);
+
+    Matrix *a = network->layers[i]->a;
+    a->data[0][a->n - 1] = 1;
   }
 }

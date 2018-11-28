@@ -9,7 +9,7 @@
 #include "matrix.h"
 
 void load_data(Matrix *output, char *file_name, int line_size, bool one_first,
-               void (*encoder)(), int enc_val);
+               void (*encoder)(), double enc_val);
 
 void scaler(double *output, int encode, int size, double max);
 

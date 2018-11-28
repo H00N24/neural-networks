@@ -1,4 +1,5 @@
 #include "activation_functions.h"
+#include "data_loader.h"
 #include "debug.h"
 #include "layer.h"
 #include "network.h"
