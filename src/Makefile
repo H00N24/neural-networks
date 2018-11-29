@@ -23,7 +23,7 @@ debug:
 	$(CC) -o $(TARGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMIZATION) $(DEBUG)
 
 test:
-	$(CC) -o $(TEST_TARGET) $(TEST_C_FILES) matrix.c $(TEST_H_FILES) matrix.h $(CFLAGS)
+	$(CC) -o $(TEST_TARGET) $(TEST_C_FILES) matrix.c $(TEST_H_FILES) matrix.h $(CFLAGS) $(DEBUG)
 	./test
 
 clean:

@@ -13,7 +13,7 @@ typedef struct matrix_obj {
   double **data;
 } Matrix;
 
-Matrix *matrix_init(int m, int n);
+Matrix *matrix_init(int m, int n, bool zero_init);
 Matrix *matrix_init_empty(int m, int n);
 
 void matrix_free(Matrix *matrix);

@@ -16,7 +16,7 @@ void matrix_fill(Matrix *mat) {
  * Matrix Test
  *---------------------------------------------------------*/
 void TestMatrixInit(CuTest *tc) {
-  Matrix *mat = matrix_init(5, 3);
+  Matrix *mat = matrix_init(5, 3, false);
   CuAssertIntEquals(tc, 5, mat->m);
   CuAssertIntEquals(tc, 3, mat->n);
 
@@ -30,9 +30,21 @@ void TestMatrixInit(CuTest *tc) {
   matrix_free(mat);
 }
 
+void TestMatrix_ZeroInit(CuTest *tc) {
+  Matrix *mat = matrix_init(5, 4, true);
+  CuAssertIntEquals(tc, 5, mat->m);
+  CuAssertIntEquals(tc, 4, mat->n);
+
+  for (int i = 0; i < mat->n; i++)
+    for (int j = 0; j < mat->m; j++)
+      CuAssertIntEquals(tc, 0, mat->data[i][j]);
+
+  matrix_free(mat);
+}
+
 void TestMatrixInitEmpty(CuTest *tc) {
   Matrix *vector = matrix_init_empty(4, 4);
-  Matrix *mat = matrix_init(4, 4);
+  Matrix *mat = matrix_init(4, 4, false);
 
   matrix_fill(mat);
 
@@ -50,13 +62,13 @@ void TestMatrixInitEmpty(CuTest *tc) {
   matrix_empty_free(vector);
 }
 
-void TestMatrixMultiplication_ZeroUnit(CuTest *tc) {
-  Matrix *mat_1 = matrix_init(4, 4);
-  Matrix *mat_2 = matrix_init(4, 4);
+void TestMatrixMultiplication_ZeroInit(CuTest *tc) {
+  Matrix *mat_1 = matrix_init(4, 4, false);
+  Matrix *mat_2 = matrix_init(4, 4, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(4, 4);
+  Matrix *mat_res = matrix_init(4, 4, false);
   matrix_multiplication(mat_res, mat_1, mat_2, 1);
 
   CuAssertIntEquals(tc, 90, mat_res->data[0][0]);
@@ -71,12 +83,12 @@ void TestMatrixMultiplication_ZeroUnit(CuTest *tc) {
 }
 
 void TestMatrixMultiplication(CuTest *tc) {
-  Matrix *mat_1 = matrix_init(4, 4);
-  Matrix *mat_2 = matrix_init(4, 4);
+  Matrix *mat_1 = matrix_init(4, 4, false);
+  Matrix *mat_2 = matrix_init(4, 4, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(4, 4);
+  Matrix *mat_res = matrix_init(4, 4, false);
   matrix_fill(mat_res);
   matrix_multiplication(mat_res, mat_1, mat_2, 0);
 
@@ -92,12 +104,12 @@ void TestMatrixMultiplication(CuTest *tc) {
 }
 
 void TestMatrixMultiplication_DiffSizes(CuTest *tc) {
-  Matrix *mat_1 = matrix_init(2, 4);
-  Matrix *mat_2 = matrix_init(4, 3);
+  Matrix *mat_1 = matrix_init(2, 4, false);
+  Matrix *mat_2 = matrix_init(4, 3, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(2, 3);
+  Matrix *mat_res = matrix_init(2, 3, false);
   matrix_multiplication(mat_res, mat_1, mat_2, 1);
 
   CuAssertIntEquals(tc, 70, mat_res->data[0][0]);
@@ -113,12 +125,12 @@ void TestMatrixMultiplication_DiffSizes(CuTest *tc) {
 }
 
 void TestMatrixSum(CuTest *tc) {
-  Matrix *mat_1 = matrix_init(4, 4);
-  Matrix *mat_2 = matrix_init(4, 4);
+  Matrix *mat_1 = matrix_init(4, 4, false);
+  Matrix *mat_2 = matrix_init(4, 4, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(4, 4);
+  Matrix *mat_res = matrix_init(4, 4, false);
   matrix_sum(mat_res, mat_1, mat_2);
 
   CuAssertIntEquals(tc, 1 + 1, mat_res->data[0][0]);
@@ -133,12 +145,12 @@ void TestMatrixSum(CuTest *tc) {
 }
 
 void TestMatrixSum_DiffSizes(CuTest *tc) {
-  Matrix *mat_1 = matrix_init(4, 3);
-  Matrix *mat_2 = matrix_init(5, 4);
+  Matrix *mat_1 = matrix_init(4, 3, false);
+  Matrix *mat_2 = matrix_init(5, 4, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(2, 3);
+  Matrix *mat_res = matrix_init(2, 3, false);
   matrix_sum(mat_res, mat_1, mat_2);
 
   CuAssertIntEquals(tc, 2, mat_res->data[0][0]);
@@ -154,12 +166,12 @@ void TestMatrixSum_DiffSizes(CuTest *tc) {
 }
 
 void TestMatrixProd(CuTest *tc) {
-  Matrix *mat_1 = matrix_init(4, 4);
-  Matrix *mat_2 = matrix_init(4, 4);
+  Matrix *mat_1 = matrix_init(4, 4, false);
+  Matrix *mat_2 = matrix_init(4, 4, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(4, 4);
+  Matrix *mat_res = matrix_init(4, 4, false);
 
   matrix_prod(mat_res, mat_1, mat_2);
 
@@ -174,14 +186,13 @@ void TestMatrixProd(CuTest *tc) {
   matrix_free(mat_res);
 }
 
-void TestMatrixProd_DiffSizes(CuTest *tc)
-{
-  Matrix *mat_1 = matrix_init(4, 3);
-  Matrix *mat_2 = matrix_init(5, 4);
+void TestMatrixProd_DiffSizes(CuTest *tc) {
+  Matrix *mat_1 = matrix_init(4, 3, false);
+  Matrix *mat_2 = matrix_init(5, 4, false);
   matrix_fill(mat_1);
   matrix_fill(mat_2);
 
-  Matrix *mat_res = matrix_init(2, 3);
+  Matrix *mat_res = matrix_init(2, 3, false);
   matrix_prod(mat_res, mat_1, mat_2);
 
   CuAssertIntEquals(tc, 1, mat_res->data[0][0]);
@@ -196,9 +207,8 @@ void TestMatrixProd_DiffSizes(CuTest *tc)
   matrix_free(mat_res);
 }
 
-void TestMatrixTranspose(CuTest *tc)
-{
-  Matrix *mat = matrix_init(1, 5);
+void TestMatrixTranspose(CuTest *tc) {
+  Matrix *mat = matrix_init(1, 5, false);
   matrix_fill(mat);
 
   Matrix *res = matrix_init_empty(5, 1);
@@ -215,7 +225,7 @@ void TestMatrixTranspose(CuTest *tc)
 }
 
 void TestSumOfMatrix(CuTest *tc) {
-  Matrix *mat = matrix_init(5, 3);
+  Matrix *mat = matrix_init(5, 3, false);
   matrix_fill(mat);
 
   double sum = sum_of_matrix(mat);
@@ -228,8 +238,9 @@ CuSuite *GetSuiteMatrix(void) {
   CuSuite *suite = CuSuiteNew();
 
   SUITE_ADD_TEST(suite, TestMatrixInit);
+  SUITE_ADD_TEST(suite, TestMatrix_ZeroInit);
   SUITE_ADD_TEST(suite, TestMatrixInitEmpty);
-  SUITE_ADD_TEST(suite, TestMatrixMultiplication_ZeroUnit);
+  SUITE_ADD_TEST(suite, TestMatrixMultiplication_ZeroInit);
   SUITE_ADD_TEST(suite, TestMatrixMultiplication);
   SUITE_ADD_TEST(suite, TestMatrixMultiplication_DiffSizes);
   SUITE_ADD_TEST(suite, TestMatrixSum);

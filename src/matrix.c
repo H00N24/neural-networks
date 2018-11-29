@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-Matrix *matrix_init(int m, int n) {
+Matrix *matrix_init(int m, int n, bool zero_init) {
   // Initialize struct matrix_obj
   Matrix *new_matrix = (Matrix *)malloc(sizeof(Matrix));
 
@@ -12,6 +12,11 @@ Matrix *matrix_init(int m, int n) {
 
   new_matrix->m = m;
   new_matrix->n = n;
+
+  if (zero_init) {
+    for (int i = 0; i < new_matrix->n; i++)
+      for (int j = 0; j < new_matrix->m; j++) new_matrix->data[i][j] = 0;
+  }
 
   return new_matrix;
 }
@@ -41,11 +46,25 @@ void matrix_empty_free(Matrix *matrix) {
 void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
                            bool zero_init) {
   // (m x n) * (n x p) = (m x p)
-  ASSERT(matrix_1->n == matrix_2->m,
-         "mat_1->N != mat_2->M, matrix_multiplication");
+#ifdef DEBUG
+  if (matrix_1->n != matrix_2->m) {
+    printf("mat_1->N '%d' != mat_2->M '%d', matrix_multiplication", matrix_1->n,
+           matrix_2->m);
+    assert(matrix_1->n != matrix_2->m);
+  }
 
-  ASSERT(result->m == matrix_1->m, "res->M != mat_1->M, matrix_multiplication");
-  ASSERT(result->n == matrix_2->n, "res->N != mat_2->N, matrix_multiplication");
+  if (result->m != matrix_1->m) {
+    printf("res->M '%d' != mat_1->M '%d', matrix_multiplication", result->m,
+           matrix_1->m);
+    assert(result->m == matrix_1->m);
+  }
+
+  if (result->n != matrix_2->n) {
+    printf("res->N '%d' != mat_2->N '%d', matrix_multiplication", result->n,
+           matrix_2->n);
+    assert(result->n == matrix_2->n);
+  }
+#endif
 
   for (int i = 0; i < matrix_1->m; i++) {
     for (int j = 0; j < matrix_2->n; j++) {
@@ -58,11 +77,27 @@ void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
 }
 
 void matrix_sum(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
-  ASSERT(matrix_1->m >= result->m, "mat_1->M < res->M, matrix_sum");
-  ASSERT(matrix_2->m >= result->m, "mat_2->M < res->M, matrix_sum");
+#ifdef DEBUG
+  if (matrix_1->m < result->m) {
+    printf("mat_1->M '%d' < res->M '%d', matrix_sum", matrix_1->m, result->m);
+    assert(matrix_1->m >= result->m);
+  }
 
-  ASSERT(matrix_1->n >= result->n, "mat_1->N < res->N, matrix_sum");
-  ASSERT(matrix_2->n >= result->n, "mat_2->N < res->N, matrix_sum");
+  if (matrix_2->m < result->m) {
+    printf("mat_2->M '%d' < res->M '%d', matrix_sum", matrix_2->m, result->m);
+    assert(matrix_2->m >= result->m);
+  }
+
+  if (matrix_1->n < result->n) {
+    printf("mat_1->N '%d' < res->N '%d', matrix_sum", matrix_1->n, result->n);
+    assert(matrix_1->n >= result->n);
+  }
+
+  if (matrix_2->n < result->n) {
+    printf("mat_2->N '%d' < res->N '%d', matrix_sum", matrix_2->n, result->n);
+    assert(matrix_2->n >= result->n);
+  }
+#endif
 
   for (int i = 0; i < result->m; i++) {
     for (int j = 0; j < result->n; j++) {
@@ -72,11 +107,27 @@ void matrix_sum(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
 }
 
 void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
-  ASSERT(matrix_1->m >= result->m, "mat_1->M < res->M, matrix_sum");
-  ASSERT(matrix_2->m >= result->m, "mat_2->M < res->M, matrix_sum");
+#ifdef DEBUG
+  if (matrix_1->m < result->m) {
+    printf("mat_1->M '%d' < res->M '%d', matrix_prod", matrix_1->m, result->m);
+    assert(matrix_1->m >= result->m);
+  }
 
-  ASSERT(matrix_1->n >= result->n, "mat_1->N < res->N, matrix_sum");
-  ASSERT(matrix_2->n >= result->n, "mat_2->N < res->N, matrix_sum");
+  if (matrix_2->m < result->m) {
+    printf("mat_2->M '%d' < res->M '%d', matrix_prod", matrix_2->m, result->m);
+    assert(matrix_2->m >= result->m);
+  }
+
+  if (matrix_1->n < result->n) {
+    printf("mat_1->N '%d' < res->N '%d', matrix_prod", matrix_1->n, result->n);
+    assert(matrix_1->n >= result->n);
+  }
+
+  if (matrix_2->n < result->n) {
+    printf("mat_2->N '%d' < res->N '%d', matrix_prod", matrix_2->n, result->n);
+    assert(matrix_2->n >= result->n);
+  }
+#endif
 
   for (int i = 0; i < result->m; i++) {
     for (int j = 0; j < result->n; j++) {
@@ -86,9 +137,22 @@ void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
 }
 
 void matrix_transpose(Matrix *res, Matrix *input) {
-  ASSERT(res->n == 1, "res->N != 1, matrix_transpose");
-  ASSERT(input->m == 1, "input->M != 1, matrix_transpose");
-  ASSERT(res->m == input->n, "res->M != input->N, matrix_transpose");
+#ifdef DEBUG
+  if (res->n != 1) {
+    printf("res->N '%d' != 1 , matrix_transpose", res->n);
+    assert(res->n == 1);
+  }
+
+  if (input->m != 1) {
+    printf("input->M '%d' != 1 , matrix_transpose", input->m);
+    assert(input->m == 1);
+  }
+
+  if (res->m != input->n) {
+    printf("res->M '%d' != input->N '%d', matrix_transpose", res->m, input->m);
+    assert(res->m == input->n);
+  }
+#endif
 
   for (int i = 0; i < input->n; i++) {
     res->data[i] = &input->data[0][i];
