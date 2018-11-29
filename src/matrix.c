@@ -85,6 +85,16 @@ void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
   }
 }
 
+void matrix_transpose(Matrix *res, Matrix *input) {
+  ASSERT(res->n == 1, "res->N != 1, matrix_transpose");
+  ASSERT(input->m == 1, "input->M != 1, matrix_transpose");
+  ASSERT(res->m == input->n, "res->M != input->N, matrix_transpose");
+
+  for (int i = 0; i < input->n; i++) {
+    res->data[i] = &input->data[0][i];
+  }
+}
+
 double sum_of_matrix(Matrix *matrix) {
   double result = 0;
   for (int i = 0; i < matrix->m; i++) {

@@ -196,6 +196,24 @@ void TestMatrixProd_DiffSizes(CuTest *tc)
   matrix_free(mat_res);
 }
 
+void TestMatrixTranspose(CuTest *tc)
+{
+  Matrix *mat = matrix_init(1, 5);
+  matrix_fill(mat);
+
+  Matrix *res = matrix_init_empty(5, 1);
+  matrix_transpose(res, mat);
+
+  CuAssertIntEquals(tc, 1, res->data[0][0]);
+  CuAssertIntEquals(tc, 2, res->data[1][0]);
+  CuAssertIntEquals(tc, 3, res->data[2][0]);
+  CuAssertIntEquals(tc, 4, res->data[3][0]);
+  CuAssertIntEquals(tc, 5, res->data[4][0]);
+
+  matrix_free(mat);
+  matrix_empty_free(res);
+}
+
 void TestSumOfMatrix(CuTest *tc) {
   Matrix *mat = matrix_init(5, 3);
   matrix_fill(mat);
@@ -218,6 +236,7 @@ CuSuite *GetSuiteMatrix(void) {
   SUITE_ADD_TEST(suite, TestMatrixSum_DiffSizes);
   SUITE_ADD_TEST(suite, TestMatrixProd);
   SUITE_ADD_TEST(suite, TestMatrixProd_DiffSizes);
+  SUITE_ADD_TEST(suite, TestMatrixTranspose);
   SUITE_ADD_TEST(suite, TestSumOfMatrix);
 
   return suite;

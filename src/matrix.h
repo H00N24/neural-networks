@@ -28,6 +28,8 @@ void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2);
 
 void matrix_apply(Matrix *result, Matrix *matrix, double (*function)(double));
 
+void matrix_transpose(Matrix *res, Matrix *input);
+
 double sum_of_matrix(Matrix *matrix);
 
 void print_matrix(Matrix *matrix, bool int_out);
