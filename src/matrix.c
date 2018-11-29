@@ -66,8 +66,8 @@ void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
   }
 #endif
 
-  for (int i = 0; i < matrix_1->m; i++) {
-    for (int j = 0; j < matrix_2->n; j++) {
+  for (int i = 0; i < result->m; i++) {
+    for (int j = 0; j < result->n; j++) {
       if (zero_init) result->data[i][j] = 0;
       for (int x = 0; x < matrix_1->n; x++) {
         result->data[i][j] += matrix_1->data[i][x] * matrix_2->data[x][j];
@@ -173,6 +173,14 @@ void matrix_apply(Matrix *result, Matrix *matrix, double (*function)(double)) {
   for (int i = 0; i < matrix->m; i++) {
     for (int j = 0; j < matrix->n; j++) {
       result->data[i][j] = function(matrix->data[i][j]);
+    }
+  }
+}
+
+void matrix_divide(Matrix *result, Matrix *matrix, double value) {
+  for (int i = 0; i < matrix->m; i++) {
+    for (int j = 0; j < matrix->n; j++) {
+      result->data[i][j] = matrix->data[i][j] / value;
     }
   }
 }
