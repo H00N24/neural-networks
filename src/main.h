@@ -2,6 +2,7 @@
 #include "data_loader.h"
 #include "debug.h"
 #include "layer.h"
+#include "matrix.h"
 #include "metrics.h"
 #include "network.h"
 #include "utils.h"

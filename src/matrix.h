@@ -28,7 +28,7 @@ void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2);
 
 void matrix_apply(Matrix *result, Matrix *matrix, double (*function)(double));
 
-void matrix_divide(Matrix *result, Matrix *matrix, double value);
+void matrix_times(Matrix *result, Matrix *matrix, double value);
 
 void matrix_transpose(Matrix *res, Matrix *input);
 

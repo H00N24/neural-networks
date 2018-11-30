@@ -14,6 +14,14 @@ typedef struct layer_obj {
   Matrix *z;
   Matrix *a;
 
+  Matrix *d_weights;
+  Matrix *d_z;
+  Matrix *d_a;
+
+  Matrix *a_T;
+  Matrix *d_z_T;
+  Matrix *d_a_T;
+
   double (*activation)(double);
   double (*activation_prime)(double);
 } Layer;

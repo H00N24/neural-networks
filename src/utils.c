@@ -25,6 +25,28 @@ double randn(double mu, double sigma) {
   return (mu + sigma * (double)X1);
 }
 
+void shuffle_array(int *array, int n) {
+  for (int i = 0; i < n - 1; i++) {
+    size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+    int t = array[j];
+    array[j] = array[i];
+    array[i] = t;
+  }
+}
+
+int array_max_index(double *array, int n) {
+  int k = 0;
+  double max = array[k];
+
+  for (int i = 0; i < n; ++i) {
+    if (array[i] > max) {
+      max = array[i];
+      k = i;
+    }
+  }
+  return k;
+}
+
 void initializer_GB(Matrix *weights, int inputs, int outputs) {
   // Gloriot & Bengio initialization
   double mn = sqrt(6 / (double)(inputs + outputs));

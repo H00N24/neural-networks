@@ -177,10 +177,10 @@ void matrix_apply(Matrix *result, Matrix *matrix, double (*function)(double)) {
   }
 }
 
-void matrix_divide(Matrix *result, Matrix *matrix, double value) {
+void matrix_times(Matrix *result, Matrix *matrix, double value) {
   for (int i = 0; i < matrix->m; i++) {
     for (int j = 0; j < matrix->n; j++) {
-      result->data[i][j] = matrix->data[i][j] / value;
+      result->data[i][j] = matrix->data[i][j] * value;
     }
   }
 }

@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-lm
-OPTIMIZATION=-O2
+OPTIMIZATION=-O3
 HEADERS=*.h 
 C_FILES=*.c
 DEBUG=-D DEBUG
@@ -10,7 +10,7 @@ TEST_TARGET=test
 TEST_C_FILES=tests/*.c
 TEST_H_FILES=tests/*.h
 
-.PHONY: all test clean
+.PHONY: all test clean $(TARGET)
 
 default: $(TARGET)
 

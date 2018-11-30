@@ -14,7 +14,7 @@ void load_data(Matrix *output, char *file_name, int line_size, bool one_first,
   while (line_index < output->m && (c = fgetc(csv_file)) != EOF) {
     switch (c) {
       case '\n': {
-        output->data[line_index][inline_index] = (double)value;
+        output->data[line_index][inline_index] = value;
         inline_index++;
 
         encoder(output->data[line_index], value, output->n, enc_val);
@@ -28,7 +28,8 @@ void load_data(Matrix *output, char *file_name, int line_size, bool one_first,
         break;
       }
       case ',': {
-        output->data[line_index][inline_index] = (double)value;
+        // DPRINT("%i ", value);
+        output->data[line_index][inline_index] = value;
         value = 0;
         inline_index++;
         break;
@@ -46,7 +47,7 @@ void load_data(Matrix *output, char *file_name, int line_size, bool one_first,
 
 void scaler(double *output, int encode, int size, double max) {
   for (int i = 0; i < size - 1; i++) {
-    output[i] /= max;
+    output[i] = output[i] / (double)max;
   }
 }
 
