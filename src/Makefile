@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-lm
+CFLAGS=-std=c11 -pedantic -Wall -lm
 OPTIMIZATION=-O2
 HEADERS=*.h 
 C_FILES=*.c
