@@ -56,3 +56,34 @@ void initializer_GB(Matrix *weights, int inputs, int outputs) {
     }
   }
 }
+
+void train_test_split(Matrix *all_data, Matrix *all_labels, Matrix **train_data,
+                      Matrix **train_labels, Matrix **test_data,
+                      Matrix **test_labels) {
+  int num_train, num_test, dt = all_data->m;
+  num_train = dt * 0.8;
+  num_test = dt - num_train;
+
+  *train_data = matrix_init_empty(num_train, all_data->n);
+  *train_labels = matrix_init_empty(num_train, all_labels->n);
+
+  *test_data = matrix_init_empty(num_test, all_data->n);
+  *test_labels = matrix_init_empty(num_test, all_labels->n);
+
+  int indexes[60000];
+  for (int i = 0; i < dt; ++i) {
+    indexes[i] = i;
+  }
+  shuffle_array(indexes, dt);
+
+  int j = 0;
+  for (int i = 0; i < num_train; i++, j++) {
+    (*train_data)->data[i] = all_data->data[indexes[j]];
+    (*train_labels)->data[i] = all_labels->data[indexes[j]];
+  }
+
+  for (int i = 0; i < num_test; i++, j++) {
+    (*test_data)->data[i] = all_data->data[indexes[j]];
+    (*test_labels)->data[i] = all_labels->data[indexes[j]];
+  }
+}

@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-lm
-OPTIMIZATION=-O3
+OPTIMIZATION=-O2
 HEADERS=*.h 
 C_FILES=*.c
 DEBUG=-D DEBUG
@@ -21,6 +21,9 @@ $(TARGET): $(C_FILES) $(HEADERS)
 
 debug:
 	$(CC) -o $(TARGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMIZATION) $(DEBUG)
+
+profile:
+	$(CC) -o $(TARGET) $(C_FILES) $(HEADERS) $(CFLAGS) $(OPTIMIZATION) -g -pg
 
 test:
 	$(CC) -o $(TEST_TARGET) $(TEST_C_FILES) matrix.c $(TEST_H_FILES) matrix.h $(CFLAGS) $(DEBUG)

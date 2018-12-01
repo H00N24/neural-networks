@@ -1,15 +1,13 @@
 #include "network.h"
 
-Network *network_init(int num_of_layers, int outputs) {
+Network *network_init(int num_of_layers) {
   Network *new_network = malloc(sizeof(struct network_obj));
 
   new_network->num_of_layers = num_of_layers;
-  new_network->outputs = outputs;
-  new_network->layers = malloc(num_of_layers * sizeof(Layer *));
-  new_network->dummy_out = matrix_init_empty(1, outputs);
-
   new_network->good = 0;
   new_network->bad = 0;
+
+  new_network->layers = malloc(num_of_layers * sizeof(Layer *));
 
   return new_network;
 }
@@ -41,8 +39,6 @@ void backward_pass(Network *network, Matrix *X, Matrix *y) {
 
   for (int i = network->num_of_layers - 1; i >= 0; i--) {
     DPRINT("Layer %d\n", i);
-    // DPRINT("  a OK: %f\n", sum_of_matrix(network->layers[i]->a));
-    // DPRINT("  y OK: %f\n", sum_of_matrix(y));
 
     if (i == network->num_of_layers - 1) {
       mean_square_prime(network->layers[i]->d_a, network->layers[i]->a, y);

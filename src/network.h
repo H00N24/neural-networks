@@ -10,17 +10,13 @@
 
 typedef struct network_obj {
   int num_of_layers;
-  int outputs;
-  Layer **layers;
-
-  Matrix *dummy_out;
-  Matrix *C;
-
   int good;
   int bad;
+  Layer **layers;
+
 } Network;
 
-Network *network_init(int num_of_layers, int outputs);
+Network *network_init(int num_of_layers);
 
 void forward_pass(Network *network, Matrix *X, Matrix *y);
 void backward_pass(Network *network, Matrix *X, Matrix *y);
