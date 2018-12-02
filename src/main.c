@@ -7,10 +7,10 @@ int main(int argc, char const *argv[]) {
 
   DPRINT("\n==Training data loading: Start==\n");
   DTIME_START_COUNTER;
-  Matrix *all_data = matrix_init(60000, 1 + INPUT_L, false);
+  Matrix *all_data = matrix_init_lines(60000, 1 + INPUT_L);
   load_data(all_data, TRAIN_DATA_FILE, INPUT_L, true, scaler, 255.0);
 
-  Matrix *all_labels = matrix_init(60000, 10, false);
+  Matrix *all_labels = matrix_init_lines(60000, 10);
   load_data(all_labels, TRAIN_LABELS_FILE, 1, false, one_hot_encoder, 1);
 
   Matrix *train_data, *train_labels, *eval_data, *eval_labels;
@@ -25,7 +25,7 @@ int main(int argc, char const *argv[]) {
   Network *network = final_architecture();
   DPRINT("==Network initialization: End (%.2fs)==\n", DTIME_DURATION);
 
-  train_network(network, 5, 0.2, 32.0, train_data, train_labels, eval_data,
+  train_network(network, 2, 0.2, 32.0, train_data, train_labels, eval_data,
                 eval_labels);
 
   double accuracy;
@@ -38,8 +38,8 @@ int main(int argc, char const *argv[]) {
   printf("Test data accuracy %.2f%%\n", accuracy);
   DPRINT("==Predicting training data: End (%.2fs)==\n", DTIME_DURATION);
 
-  matrix_free(all_data);
-  matrix_free(all_labels);
+  matrix_lines_free(all_data);
+  matrix_lines_free(all_labels);
   matrix_empty_free(train_data);
   matrix_empty_free(train_labels);
   matrix_empty_free(eval_data);
@@ -48,10 +48,10 @@ int main(int argc, char const *argv[]) {
   DPRINT("\n==Predicting testing data: Start ==\n");
   DTIME_START_COUNTER;
 
-  Matrix *test_data = matrix_init(10000, 1 + INPUT_L, false);
+  Matrix *test_data = matrix_init_lines(10000, 1 + INPUT_L);
   load_data(test_data, TEST_DATA_FILE, INPUT_L, true, scaler, 255.0);
 
-  Matrix *test_labels = matrix_init(10000, 10, false);
+  Matrix *test_labels = matrix_init_lines(10000, 10);
   load_data(test_labels, TEST_LABELS_FILE, 1, false, one_hot_encoder, 1);
 
   accuracy = network_accuracy(network, test_data, test_labels,
@@ -62,8 +62,8 @@ int main(int argc, char const *argv[]) {
 
   DPRINT("\n==Total time %.2fs==\n", DTIME_END);
 
-  matrix_free(test_data);
-  matrix_free(test_labels);
+  matrix_lines_free(test_data);
+  matrix_lines_free(test_labels);
   network_free(network);
   return 0;
 }

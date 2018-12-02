@@ -11,6 +11,7 @@ typedef struct layer_obj {
   unsigned int outputs;
 
   Matrix *weights;
+  Matrix *weights_T;
   Matrix *z;
   Matrix *a;
 

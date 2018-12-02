@@ -50,7 +50,7 @@ int forward_pass(Network *network, Matrix *X, Matrix *y) {
 
 void backward_pass(Network *network, Matrix *X, Matrix *y) {
   Matrix *X_T = matrix_init_empty(X->n, X->m);
-  matrix_transpose(X_T, X);
+  matrix_transpose_line(X_T, X);
 
   for (int i = network->num_of_layers - 1; i >= 0; i--) {
     if (i == network->num_of_layers - 1) {

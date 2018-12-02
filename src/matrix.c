@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-Matrix *matrix_init(int m, int n, bool zero_init) {
+Matrix *matrix_init_lines(int m, int n) {
   // Initialize struct matrix_obj
   Matrix *new_matrix = (Matrix *)malloc(sizeof(Matrix));
 
@@ -12,11 +12,6 @@ Matrix *matrix_init(int m, int n, bool zero_init) {
 
   new_matrix->m = m;
   new_matrix->n = n;
-
-  if (zero_init) {
-    for (int i = 0; i < new_matrix->n; i++)
-      for (int j = 0; j < new_matrix->m; j++) new_matrix->data[i][j] = 0;
-  }
 
   return new_matrix;
 }
@@ -31,7 +26,21 @@ Matrix *matrix_init_empty(int m, int n) {
   return new_matrix;
 }
 
-void matrix_free(Matrix *matrix) {
+Matrix *matrix_init_full(int m, int n) {
+  Matrix *new_matrix = (Matrix *)malloc(sizeof(Matrix));
+
+  new_matrix->m = m;
+  new_matrix->n = n;
+
+  new_matrix->data = (double **)malloc(m * sizeof(double *));
+  new_matrix->data[0] = (double *)calloc(m * n, sizeof(double));
+  for (int i = 1; i < m; i++) {
+    new_matrix->data[i] = new_matrix->data[i - 1] + n;
+  }
+  return new_matrix;
+}
+
+void matrix_lines_free(Matrix *matrix) {
   for (int i = 0; i < matrix->m; i++) free(matrix->data[i]);
 
   free(matrix->data);
@@ -39,6 +48,12 @@ void matrix_free(Matrix *matrix) {
 }
 
 void matrix_empty_free(Matrix *matrix) {
+  free(matrix->data);
+  free(matrix);
+}
+
+void matrix_full_free(Matrix *matrix) {
+  free(matrix->data[0]);
   free(matrix->data);
   free(matrix);
 }
@@ -141,7 +156,7 @@ void matrix_prod(Matrix *result, Matrix *matrix_1, Matrix *matrix_2) {
   }
 }
 
-void matrix_transpose(Matrix *res, Matrix *input) {
+void matrix_transpose_line(Matrix *res, const Matrix *input) {
 #ifdef DEBUG
   if (res->n != 1) {
     printf("res->N '%d' != 1 , matrix_transpose", res->n);
