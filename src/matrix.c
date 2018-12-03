@@ -65,13 +65,18 @@ void matrix_multiplication(Matrix *result, Matrix *matrix_1, Matrix *matrix_2,
     assert(result->n == matrix_2->n);
   }
 #endif
-
-  for (int i = 0; i < result->m; i++) {
-    for (int j = 0; j < result->n; j++) {
-      if (zero_init) result->data[i][j] = 0;
-      for (int x = 0; x < matrix_1->n; x++) {
-        result->data[i][j] += matrix_1->data[i][x] * matrix_2->data[x][j];
+  int i, j, x;
+  double a;
+  for (i = 0; i < result->m; ++i) {
+    for (j = 0; j < result->n; ++j) {
+      a = 0;
+      for (x = 0; x < matrix_1->n; ++x) {
+        a += matrix_1->data[i][x] * matrix_2->data[x][j];
       }
+      if (zero_init)
+        result->data[i][j] = a;
+      else
+        result->data[i][j] += a;
     }
   }
 }
