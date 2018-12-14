@@ -2,6 +2,8 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+unzip -u *.zip
+
 cd $DIR/MNIST_DATA && unzip -u *.zip &&  sed -i 's/\r//g' *.csv
 
 cd $DIR/src && make && ./network
