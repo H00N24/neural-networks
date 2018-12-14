@@ -4,7 +4,7 @@ Simple feedforward neural network trained by SGD, backpropagation and mean squar
 * [Repository](https://github.com/H00N24/neural-networks/)
 
 ## Authors
-* Róbert Kolcún [@NoName115](https://github.com/NoName115)
+* Róbert Kolcún [@NoName115](https://github.com/NoName115) <487564@mail.muni.cz>
 * Ondrej Kurák [@H00N24](https://github.com/H00N24)
 
 ## Usage
@@ -19,6 +19,7 @@ $ ./RUN
 
 ### Makefile
 `src/Makefile`
+
 #### Debug
 * Enables debug prints
 ```
@@ -60,8 +61,11 @@ Test data accuracy 96.20%
 
 ==Total time 212.80s==
 ```
+
 #### Test
 - Compiles and runs unit tests
+- [CuTest website](http://cutest.sourceforge.net/)
+- Licence can be found in src/tests/license.txt file
 ```
 $ make test
 ./test
