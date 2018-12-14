@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-std=c11 -pedantic -Wall -lm
-OPTIMIZATION=-O2
+OPTIMIZATION=-Ofast
 HEADERS=*.h 
 C_FILES=*.c
 DEBUG=-D DEBUG
