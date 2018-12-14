@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#unzip MNIST_DATA/mnist_data.zip -d MNIST_DATA/
+unzip MNIST_DATA/mnist_data.zip -d MNIST_DATA/
 
-#cd MNIST_DATA && sed -i 's/\r//g' *.csv
+cd MNIST_DATA && sed -i 's/\r//g' *.csv
 
-cd src && make debug && ./network
+cd src && make && ./network
