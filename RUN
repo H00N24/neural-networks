@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-unzip MNIST_DATA/mnist_data.zip -d MNIST_DATA/
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-cd MNIST_DATA && sed -i 's/\r//g' *.csv
+cd $DIR/MNIST_DATA && unzip -u *.zip &&  sed -i 's/\r//g' *.csv
 
-cd src && make && ./network
+cd $DIR/src && make && ./network
