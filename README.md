@@ -5,7 +5,7 @@ Simple feedforward neural network trained by SGD, backpropagation and mean squar
 
 ## Authors
 * Róbert Kolcún [@NoName115](https://github.com/NoName115) <487564@mail.muni.cz>
-* Ondrej Kurák [@H00N24](https://github.com/H00N24)
+* Ondrej Kurák [@H00N24](https://github.com/H00N24) <487589@mail.muni.cz>
 
 ## Usage
 ```
